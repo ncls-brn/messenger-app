@@ -70,7 +70,7 @@ const AuthForm = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 
                 >
-                    <input/>
+                    <Input id="email" label="Email" register={register}/>
                 </form>
 
             </div>
