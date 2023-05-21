@@ -1,81 +1,78 @@
-'use client';
+"use client";
 
 import Input from "@/app/components/inputs/Input";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-type Variant = 'LOGIN' | 'REGISTER';
+type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
-    const [variant, setVariant] = useState<Variant>('LOGIN');
-    const [isLoading, setIsLoading] = useState(false);
+  const [variant, setVariant] = useState<Variant>("LOGIN");
+  const [isLoading, setIsLoading] = useState(false);
 
-    const toggleVariant = useCallback(() => {
-        if(variant =='LOGIN') {
-            setVariant('REGISTER');
-        }else{
-            setVariant('LOGIN');
-        }
-    },[variant]);
-
-    const {
-        register,
-        handleSubmit,
-        formState:{
-            errors
-        }
-
-    } = useForm<FieldValues>({
-        defaultValues: {
-            name:'',
-            email:'',
-            password:''
-        }
-    });
-
-    const onSubmit: SubmitHandler<FieldValues> = (data) =>{
-        setIsLoading(true);
-
-        if(variant =='REGISTER'){
-            //axios resgister
-        }
-        if(variant == 'LOGIN'){
-            //NextAuth signIn 
-        }
+  const toggleVariant = useCallback(() => {
+    if (variant == "LOGIN") {
+      setVariant("REGISTER");
+    } else {
+      setVariant("LOGIN");
     }
+  }, [variant]);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
 
-    const socialAction = (action:string) => {
-        setIsLoading(true);
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
 
-        //NextAuth Social signIn 
+    if (variant == "REGISTER") {
+      //axios resgister
     }
+    if (variant == "LOGIN") {
+      //NextAuth signIn
+    }
+  };
 
+  const socialAction = (action: string) => {
+    setIsLoading(true);
 
+    //NextAuth Social signIn
+  };
 
-    return(
-        <div className="
+  return (
+    <div
+      className="
         mt-8
         sm:mx-auto
         sm:w-full
-        sm:max-w-md">
-            <div className="
+        sm:max-w-md"
+    >
+      <div
+        className="
             bg-white
             px-4
             py-8
             shadow
             sm:rounded-lg
-            sm:px-10">
-                <form className="space-y-6"
-                onSubmit={handleSubmit(onSubmit)}
-                
-                >
-                    <Input id="email" label="Email" register={register}/>
-                </form>
-
-            </div>
-        </div>
-    )
-}
+            sm:px-10"
+      >
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            {variant == 'REGISTER' && (
+          <Input id="name" label="Name" register={register} errors={errors} />)}
+          <Input id="email" label="Email address" type="email" register={register} errors={errors} />
+          <Input id="password" label="Password" type="password" register={register} errors={errors} />
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default AuthForm;
