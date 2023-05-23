@@ -109,6 +109,10 @@ const AuthForm = () => {
                     onClick={() => socialAction('google')} />
             </div>
         </div>
+        <div className="flex gap-2 text-sm justify-center mt-6 px-2 text-gray-500">
+            <div>{variant == 'LOGIN'?'New to Messenger?':'Already have an account?'}</div>
+            <div onClick={toggleVariant} className="underline cursor-pointer">{variant=='LOGIN'?'Create a account':'Login'}</div>
+        </div>
       </div>
     </div>
   );
